@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $1 == true ]; then
+if ! [ -d $HOME/EAA/backups ]; then
+	mkdir $HOME/EAA/backups
+fi
+
+
+tar czf week4backup.tar.gz $HOME/EAA/week4
+
+mv week4backup.tar.gz $HOME/EAA/backups
+
+else
+tar -xzvf week4backup.tar.gz
+
+fi

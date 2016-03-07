@@ -1,0 +1,26 @@
+cpu <- c(55,56,98,100,15,12,33,45,32,67,82,19,25)
+
+#png("line_plot.PNG")
+
+#plot(cpu,type="b",xlab="time",ylab="cpu idle (%)",main="cpu idle")
+
+#dev.off()
+
+#print(summary(cpu))
+
+cpu_usage <- 100 - cpu
+
+#png("line_plot2.PNG")
+
+plot(cpu_usage,type="b",xlab="time",ylab="cpu usage (%)",main="cpu usage")
+
+#dev.off()
+
+#independent variable
+x <- c(rep(1:13))
+
+#dependent variable
+y <- lm(cpu_usage ~ x)
+
+#add to existing plot figure
+abline(y,col = "red")

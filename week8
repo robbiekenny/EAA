@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#$3 is the directory
+if [ -d $3 ]; then #if the directory exists
+
+mpstat $1 $2 >> $3/log.dat
+gzip $3/log.dat
+mv $3/log.dat.gz $3/`date +%F`.gz
+
+else 
+#otherwise try to create it
+mkdir $3
+if [ $? -ne 0 ]; then #check if this directory was successfully created
+echo "an error occured"
+exit
+fi
+
+mpstat $1 $2 >> $3/log.dat
+gzip $3/log.dat
+mv $3/log.dat.gz $3/`date +%F`.gz
+
+fi

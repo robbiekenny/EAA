@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#headings of the result.dat file
+printf "%-8s %-8s %-8s" "C0" "N" "idle" > results.dat
+
+for i in {1..50}
+do
+timeout 10s ./loadtest $i & ##run synthetic load and kill process after 10 seconds
+mpstat 1 10 > CPUData.txt #gather CPU data
+numTransactions=`wc -l < synthetic.dat` #get line count without file name
+CPUAverage=`awk '/Average/ {print $12}' CPUData.txt` #get the average CPU idle time by getting the average at the end of the file
+
+#append results to results.dat
+printf "\n%-8s %-8s %-8s" "$numTransactions" "$i" "$CPUAverage" >> results.dat
+
+done
